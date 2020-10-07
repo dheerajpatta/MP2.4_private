@@ -34,7 +34,7 @@ if __name__ == '__main__':
         sys.exit(1)
 
     start_time = time.time()
-    top_k = 10
+    top_k = 1250
     query_path = query_cfg.get('query-path', 'queries.txt')
     query_start = query_cfg.get('query-id-start', 0)
 
