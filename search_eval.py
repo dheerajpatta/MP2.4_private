@@ -38,13 +38,13 @@ class PL2Ranker(metapy.index.RankingFunction):
 
     def score_one(self, sd):
         lda = sd.num_docs / sd.corpus_term_count
-        tfn = sd.doc_term_count * math.log2(1.0 + self.c * sd.avg_dl /
-                sd.doc_size)
+        tfn = sd.doc_term_count * math.log(1.0 + self.c * sd.avg_dl /
+                sd.doc_size,2)
         if lda < 1 or tfn <= 0:
             return 0.0
-        numerator = tfn * math.log2(tfn * lda) \
-                        + math.log2(math.e) * (1.0 / lda - tfn) \
-                        + 0.5 * math.log2(2.0 * math.pi * tfn)
+        numerator = tfn * math.log(tfn * lda,2) \
+                        + math.log(math.e,2) * (1.0 / lda - tfn) \
+                        + 0.5 * math.log(2.0 * math.pi * tfn,2)
         return sd.query_term_weight * numerator / (tfn + 1.0)
 
 def load_ranker(cfg_file):
