@@ -47,15 +47,50 @@ class PL2Ranker(metapy.index.RankingFunction):
                         + 0.5 * math.log(2.0 * math.pi * tfn,2)
         return sd.query_term_weight * numerator / (tfn + 1.0)
 
+def avg_doc_len(coll):
+    tot_dl = 0
+    for id, doc in coll.get_docs().items():
+        tot_dl = tot_dl + doc.get_doc_len()
+    return tot_dl / coll.get_num_docs()
+
+
+def bm25(coll, q, df):
+    bm25s = {}
+    avg_dl = avg_doc_len(coll)
+    no_docs = coll.get_num_docs()
+    for id, doc in coll.get_docs().items():
+        query_terms = q.split()
+        qfs = {}
+        for t in query_terms:
+            term = stem(t.lower())
+            try:
+                qfs[term] += 1
+            except KeyError:
+                qfs[term] = 1
+        k = 1.2 * ((1 - 0.75) + 0.75 * (doc.get_doc_len() / float(avg_dl)))
+        bm25_ = 0.0;
+        for qt in qfs.keys():
+            n = 0
+            if qt in df.keys():
+                n = df[qt]
+                f = doc.get_term_count(qt);
+                delta = 1
+                qf = qfs[qt]
+                bm = math.log(1.0 / ((n) / (no_docs+1)), 2) * ((((1.2 + 1) * f) / (k + f) )+ delta)
+                bm25_ += bm
+        bm25s[doc.get_docid()] = bm25_
+    return bm25s
+
 def load_ranker(cfg_file):
     """
     Use this function to return the Ranker object to evaluate, 
     The parameter to this function, cfg_file, is the path to a
     configuration file used to load the index.
     """
-    return metapy.index.OkapiBM25(k1=1.2,b=0.75,k3=7.0)
+    return metapy.index.OkapiBM25(k1=1.5,b=0.75,k3=0.25)
     # return InL2Ranker(some_param=0.5)
     # return PL2Ranker(c_param=0.75)
+    # return bm25()
 
 if __name__ == '__main__':
     # if len(sys.argv) != 2:
