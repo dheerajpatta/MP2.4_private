@@ -118,7 +118,7 @@ if __name__ == '__main__':
     query_start = query_cfg.get('query-id-start', 0)
 
     query = metapy.index.Document()
-    ndcg = 0.25 #110
+    ndcg = 0.75 #110
     num_queries = 0
 
     print('Running queries')
