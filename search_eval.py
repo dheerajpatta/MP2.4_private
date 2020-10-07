@@ -34,13 +34,13 @@ if __name__ == '__main__':
         sys.exit(1)
 
     start_time = time.time()
-    top_k = 1250
+    top_k = 100
     query_path = query_cfg.get('query-path', 'queries.txt')
     query_start = query_cfg.get('query-id-start', 0)
 
     query = metapy.index.Document()
     ndcg = 110 #110
-    num_queries = 75
+    num_queries = 25
 
     print('Running queries')
     with open(query_path) as query_file:
