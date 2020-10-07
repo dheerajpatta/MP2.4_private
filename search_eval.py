@@ -32,7 +32,7 @@ class PL2Ranker(metapy.index.RankingFunction):
     """
     Create a new ranking function in Python that can be used in MeTA
     """
-    def __init__(self, c_param=0.5):
+    def __init__(self, c_param=0.75):
         self.c = c_param
         super(PL2Ranker, self).__init__()
 
@@ -55,7 +55,7 @@ def load_ranker(cfg_file):
     """
     # return metapy.index.OkapiBM25(k1=1.2,b=0.75,k3=7.0)
     # return InL2Ranker(some_param=0.5)
-    return PL2Ranker(c_param=0.5)
+    return PL2Ranker(c_param=0.75)
 
 if __name__ == '__main__':
     # if len(sys.argv) != 2:
