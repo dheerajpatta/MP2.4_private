@@ -1,0 +1,13 @@
+stop-words = "stopwords.txt"
+prefix = "."
+dataset = "cranfield"
+corpus = "line.toml"
+query-judgements = "cranfield-qrels.txt"
+index = "idx"
+[query-runner]
+	query-id-start = 1
+	query-path = "cranfield-queries.txt"
+[[analyzers]]
+	filter = "default-unigram-chain"
+	method = "ngram-word"
+	ngram = 1
