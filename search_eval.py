@@ -11,7 +11,7 @@ def load_ranker(cfg_file):
     The parameter to this function, cfg_file, is the path to a
     configuration file used to load the index.
     """
-    return metapy.index.OkapiBM25(k1=2.2,b=0.25,k3=70)
+    return metapy.index.OkapiBM25(k1=1.25,b=0.75,k3=500)
 
 if __name__ == '__main__':
     # if len(sys.argv) != 2:
@@ -34,13 +34,13 @@ if __name__ == '__main__':
         sys.exit(1)
 
     start_time = time.time()
-    top_k = 100
+    top_k = 1000
     query_path = query_cfg.get('query-path', 'queries.txt')
     query_start = query_cfg.get('query-id-start', 0)
 
     query = metapy.index.Document()
     ndcg = 110 #110
-    num_queries = 25
+    num_queries = 15
 
     print('Running queries')
     with open(query_path) as query_file:
