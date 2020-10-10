@@ -10,6 +10,11 @@ query-judgements = "cranfield-qrels.txt"
 [[analyzers]]
 method = "ngram-word"
 ngram = 1
+filter = "default-unigram-chain"
+
+[[analyzers]]
+method = "ngram-word"
+ngram = 2
 filter = "default-chain"
 
 [query-runner]
