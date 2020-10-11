@@ -11,7 +11,7 @@ def load_ranker(cfg_file):
     The parameter to this function, cfg_file, is the path to a
     configuration file used to load the index.
     """
-    return metapy.index.OkapiBM25(k1=1.9, b=0.75, k3=2.15)
+    return metapy.index.OkapiBM25(k1=1.95, b=0.75, k3=3.65)
 
 if __name__ == '__main__':
     #if len(sys.argv) != 2:
