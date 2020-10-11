@@ -11,7 +11,7 @@ def load_ranker(cfg_file, i):
     The parameter to this function, cfg_file, is the path to a
     configuration file used to load the index.
     """
-    return metapy.index.OkapiBM25(k1=i, b=0.75, k3=3.25)
+    return metapy.index.OkapiBM25(k1=i, b=0.75, k3=3.35)
 
 cfg = 'config.toml'
 print('Building or loading index...')
@@ -32,7 +32,8 @@ num_queries = 0
 
 print('Running queries')
 with open(query_path) as query_file:
-    for i in np.arange(1, 3.1, 0.01):
+    for i in np.arange(1, 3.1, 0.01, dtype = 'float'):
+        # print("i{}".format(i) )
         for query_num, line in enumerate(query_file):
             query.content(line.strip())
             ranker = load_ranker(cfg, i)
